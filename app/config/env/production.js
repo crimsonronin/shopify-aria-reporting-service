@@ -3,8 +3,14 @@
  */
 
 module.exports = {
-    sqs: {
-        waitTime: process.env.SQS_WAIT_TIME || 20 //seconds
-    },
-    retryWaitTime: process.env.RETRY_WAIT_TIME || 60 //seconds
+    db: process.env.MONGO,
+    aria: {
+        fileNamePrefix: process.env.MONGO,
+        ftp: {
+            host: process.env.FTP_HOST,
+            port: process.env.FTP_PORT || 20,
+            username: process.env.FTP_USERNAME,
+            password: process.env.FTP_PASSWORD
+        }
+    }
 };

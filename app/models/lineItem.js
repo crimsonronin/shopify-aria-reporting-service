@@ -3,31 +3,24 @@
  */
 
 var mongoose = require('mongoose');
+var Product = require('./product');
 
 var Schema = mongoose.Schema;
 
-function Product() {
+function LineItem() {
     /**
-     * Product Schema
+     * LineItem Schema
      */
 
-    var ProductSchema = new Schema({
+    var LineItemSchema = new Schema({
         _id: {type: String},
-        name: {type: String, default: ''},
-        aria: {
-            artistName: {type: String, default: ''},
-            releaseName: {type: String, default: ''},
-            catalogueNumber: {type: String, default: ''},
-            barcode: {type: String, default: ''},
-            releaseDate: {type: Date}
-        },
+        product: {type: mongoose.Schema.Types.ObjectId, ref: 'Product'},
+        price: {type: Number, default: 0},
+        quantity: {type: Number, default: 0},
         raw: {}
     });
 
-    //indexes
-    ProductSchema.index({'aria.releaseDate': -1});
-
-    return mongoose.model('Product', ProductSchema);
+    return mongoose.model('LineItem', LineItemSchema);
 }
 
-module.exports = exports = new Product;
+module.exports = exports = new LineItem;

@@ -9,19 +9,12 @@ var config = require('../config');
  *
  * @constructor
  */
-function Manager() {
+function Reporter() {
 
 }
 
-Manager.prototype.run = function () {
-    var deferred = Q.defer();
-
-
-    return deferred.promise;
-};
-
 /**
  * Expose
- * @type {Manager}
+ * @type {Reporter}
  */
-module.exports = exports = new Manager;
+module.exports = exports = new Reporter;

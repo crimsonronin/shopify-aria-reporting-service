@@ -3,65 +3,61 @@
  */
 
 var Q = require('q');
-var Order = require('../../models/order');
+var Product = require('../../models/product');
 
 /**
  * A manager
  *
  * @constructor
  */
-function OrderManager() {
+function ProductManager() {
 
 }
 
-OrderManager.prototype.findOrders = function (options) {
+ProductManager.prototype.findProducts = function (options) {
     var deferred = Q.defer();
 
-    var query = Order.find(options.criteria);
+    var query = Product.find(options.criteria);
 
     if (!!options.select) {
         query.select(options.select);
     }
 
-    query.exec(function (err, users) {
-        deferred.resolve(users);
+    query.exec(function (err, products) {
+        deferred.resolve(products);
     });
 
     return deferred.promise;
 };
 
-OrderManager.prototype.findOrder = function (options) {
+ProductManager.prototype.findProduct = function (criteria) {
     var deferred = Q.defer();
 
-    var query = Order.findOne(options.criteria);
+    var query = Product.findOne(criteria);
 
-    if (!!options.select) {
-        query.select(options.select);
-    }
-
-    query.exec(function (err, users) {
-        deferred.resolve(users);
+    query.exec(function (err, product) {
+        deferred.resolve(product);
     });
 
     return deferred.promise;
 };
 
 /**
- * Update an Order.
+ * Update an Product.
  *
  * @param data
  * @returns {promise|*|Q.promise}
  */
-UserManager.prototype.update = function (data) {
+ProductManager.prototype.save = function (data) {
     var deferred = Q.defer();
 
-    var user = new Order(data);
+    var user = new Product(data);
     var upsertData = user.toObject();
     delete upsertData._id;
 
-    Order.update({_id: user.id}, upsertData, {upsert: true}, function (err) {
+    Product.update({_id: user.id}, upsertData, {upsert: true}, function (err) {
         if (!err) {
-            deferred.resolve(user);
+            deferred.resolve();
         } else {
             deferred.reject(err);
         }
@@ -74,4 +70,4 @@ UserManager.prototype.update = function (data) {
  * Expose
  * @type {Manager}
  */
-module.exports = exports = new OrderManager;
+module.exports = exports = new ProductManager;
